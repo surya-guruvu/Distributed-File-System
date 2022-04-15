@@ -12,7 +12,7 @@ import secure
 
 class FileSystem(pb2_grpc.FileSystemServicer):
  
-	def sendStringRequest(self, request, context):
+	def sendStringRequest(self, request, context): 
 		a=request.original
 		n=len(a);
 		return pb2.StringReply(reversed = a[::-1]);
