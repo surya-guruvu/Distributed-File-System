@@ -1,0 +1,254 @@
+syntax = "proto3";
+
+package filesystem;
+
+// The string reversal service definition.
+service FileSystem {
+    // Function invoked to send the request
+    rpc sendStringRequest (StringRequest) returns (StringReply) {}
+
+    rpc Access (AccessRequest) returns (AccessReply) {}
+
+    rpc Mkdir (MkdirRequest) returns (MkdirReply) {}
+
+    rpc Rmdir (RmdirRequest) returns (RmdirReply) {}
+
+    rpc Readdir (ReaddirRequest) returns (ReaddirReply) {}
+
+    rpc GetAttr (GetAttrRequest) returns (GetAttrReply) {}
+
+    rpc Open (OpenRequest) returns (OpenReply) {}
+    
+    rpc Read (ReadRequest) returns (ReadReply) {}
+
+    rpc Write (WriteRequest) returns (WriteReply) {}
+
+    rpc Truncate (TruncateRequest) returns (TruncateReply) {}
+
+    rpc Chown (ChownRequest) returns (ChownReply) {}
+
+    rpc Create (CreateRequest) returns (CreateReply) {}
+
+    rpc Flush (FlushRequest) returns (FlushReply) {}
+
+    rpc Close (CloseRequest) returns (CloseReply) {}
+
+    rpc Mknod (MknodRequest) returns (MknodReply) {}
+
+    rpc Chmod (ChmodRequest) returns (ChmodReply) {}
+
+    rpc Unlink (UnlinkRequest) returns (UnlinkReply) {}
+
+    rpc Rename (RenameRequest) returns (RenameReply) {}
+
+    rpc Link (LinkRequest) returns (LinkReply) {}
+
+    rpc Utime (UtimeRequest) returns (UtimeReply) {}
+
+    rpc Readlink (ReadlinkRequest) returns (ReadlinkReply) {}
+}
+
+// The request message containing the original string
+message StringRequest {
+    string original = 1;
+}
+
+// The response message containing the reversed string
+message StringReply {
+    string reversed = 1;
+}
+
+
+message AccessRequest {
+    bytes path = 1;
+    bytes mode = 2;
+}
+
+message AccessReply {
+    bytes status=1;
+    
+}
+
+message MkdirRequest {
+    bytes path = 1;
+    bytes mode = 2;
+}
+
+message MkdirReply {
+    int32 status=1;
+}
+
+message RmdirRequest {
+    bytes path = 1;
+}
+
+message RmdirReply {
+    int32 status=1;
+}
+
+message ReaddirRequest {
+    bytes path = 1;
+}
+
+message ReaddirReply {
+    repeated bytes dirs=1;
+}
+
+message GetAttrRequest {
+    string path = 1;
+}
+
+message GetAttrReply {
+    float atime = 1;
+    float ctime = 2;
+    uint32 gid   = 3;
+    uint64 mode  = 4;
+    float mtime = 5;
+    uint64 nlink = 6;
+    uint64 size  = 7;
+    uint32 uid   = 8;
+
+}
+
+
+message OpenRequest{
+    bytes path = 1;
+    bytes flags = 2;
+}
+
+message OpenReply{
+    bytes fd=1;
+}
+
+message ReadRequest {
+    bytes fileHandle = 1;
+    bytes size = 2;
+    bytes offset = 3;
+    bytes path = 4;
+}
+
+message ReadReply {
+    bytes data = 1;
+}
+
+message WriteRequest {
+    bytes fileHandle = 1;
+    bytes buffer = 2;
+    bytes offset = 3;
+    bytes path = 4;
+}
+
+message WriteReply {
+    bytes numBytes= 1;
+}
+
+message TruncateRequest {
+    bytes path = 1;
+    bytes size = 2;
+}
+
+message TruncateReply {
+    int32 status = 1;
+}
+
+message ChownRequest {
+    bytes uid =1;
+    bytes gid =2;
+    bytes path=3;
+}
+
+message ChownReply {
+    int32 status = 1;
+}
+
+message CreateRequest {
+    bytes uid =1;
+    bytes gid =2;
+    bytes path=3;
+    bytes pid=4;
+    bytes mode=5;
+}
+
+message CreateReply {
+    bytes fd=1;
+}
+
+message FlushRequest {
+    bytes fd=1;
+}
+
+message FlushReply {
+    int32 status = 1;
+}
+
+message CloseRequest {
+    bytes fd=1;
+}
+
+message CloseReply {
+    int32 status = 1;
+}
+
+message MknodRequest {
+    bytes path = 1;
+    bytes mode =2;
+    bytes dev  =3;
+}
+
+message MknodReply {
+    int32 status = 1;
+}
+
+message ChmodRequest {
+    bytes path = 1;
+    bytes mode =2;
+}
+
+message ChmodReply {
+    int32 status = 1;
+}
+
+message UnlinkRequest {
+    bytes path = 1;
+}                    
+
+message UnlinkReply {
+    int32 status = 1;
+}
+
+message RenameRequest {
+    bytes old =1;
+    bytes new =2;
+}
+
+message RenameReply {
+    int32 status = 1;
+}
+
+message LinkRequest {
+    bytes name = 1;
+    bytes target = 2;
+}
+
+message LinkReply {
+    int32 status = 1;
+}
+
+message UtimeRequest {
+    string path = 1;
+    float atime = 2;
+    float mtime = 3;
+}
+
+message UtimeReply {
+    int32 status = 1;
+}
+
+message ReadlinkRequest{
+    bytes path = 1;
+    bytes root = 2;
+}
+
+message ReadlinkReply {
+    bytes pathname = 1;
+}
