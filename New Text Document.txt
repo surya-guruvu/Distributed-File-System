@@ -1,0 +1,3 @@
+1545  python3 -m grpc_tools.protoc --proto_path=. ./filesystem.proto --python_out=. --grpc_python_out=.
+1546  python3 serverfs.py
+1547  python3 clientfs.py "/home/ee1190481/Downloads/example1" "/home/ee1190481/Downloads/example"
